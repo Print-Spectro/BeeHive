@@ -68,12 +68,18 @@ protected:
 	//void Jump(const FInputActionValue& Value);
 
 	UPROPERTY(EditDefaultsOnly)
-		float MoveSpeed = 100;
+	float MoveSpeed = 100;
 
 	UPROPERTY()
-		bool ShouldMove = false;
+	bool ShouldMove = false;
 
 	UPROPERTY()
-		FVector MoveDirection;
+	FVector MoveDirection;
+
+	UPROPERTY()
+	class UAIPerceptionStimuliSourceComponent* StimulusSource;
+
+
+	void SetupStimulusSource();
 
 };

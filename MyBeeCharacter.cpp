@@ -13,6 +13,10 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 
+//Perception
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "Perception/AISense_Sight.h"
+
 // Sets default values
 AMyBeeCharacter::AMyBeeCharacter()
 {
@@ -25,6 +29,8 @@ AMyBeeCharacter::AMyBeeCharacter()
 
 	ThirdPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ThirdPersonCamera"));
 	ThirdPersonCamera->SetupAttachment(SpringArmComp);
+
+	SetupStimulusSource();
 
 }
 
@@ -109,5 +115,15 @@ void AMyBeeCharacter::stopMove(const FInputActionValue& Value)
 void AMyBeeCharacter::interact(const FInputActionValue& Value)
 {
 
+}
+
+void AMyBeeCharacter::SetupStimulusSource()
+{
+	StimulusSource = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("Stimulus"));
+	if (StimulusSource) 
+	{
+		StimulusSource->RegisterForSense(TSubclassOf<UAISense_Sight>());
+		StimulusSource->RegisterWithPerceptionSystem();
+	}
 }
 
